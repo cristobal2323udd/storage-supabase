@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>Adopta 🐶</ion-title>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-segment [(ngModel)]="filtro">
+      <ion-segment-button value="todos">
+        <ion-label>Todos ({{ totalTodos() }})</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="disponibles">
+        <ion-label>Disponibles ({{ totalDisponibles() }})</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="adoptados">
+        <ion-label>Adoptados ({{ totalAdoptados() }})</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  @if (cargando()) {
+    <div class="cargando ion-text-center">
+      <ion-spinner></ion-spinner>
+      <p>Cargando perritos…</p>
+    </div>
+  } @else {
+    <ion-grid>
+      <ion-row>
+        @for (perro of perros(); track perro.id) {
+          <ion-col size="6" size-md="4" size-lg="3">
+            <app-tarjeta-perro
+              [perro]="perro"
+              [routerLink]="['/detalle', perro.id]"
+            ></app-tarjeta-perro>
+          </ion-col>
+        } @empty {
+          <ion-col size="12">
+            <p class="vacio">No hay perritos en esta categoría.</p>
+          </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+  }
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button routerLink="/nuevo">
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

@@ -1,0 +1,15 @@
+<ion-card class="tarjeta">
+  <div class="foto">
+    <img [src]="perro().foto" [alt]="perro().nombre" />
+    @if (perro().adoptado) {
+      <ion-badge class="estado" color="success">✓ Adoptado</ion-badge>
+    } @else {
+      <ion-badge class="estado" color="light">Disponible</ion-badge>
+    }
+  </div>
+
+  <ion-card-header>
+    <ion-card-title>{{ perro().nombre }}</ion-card-title>
+    <ion-card-subtitle>{{ perro().raza }} · {{ perro().edad }}</ion-card-subtitle>
+  </ion-card-header>
+</ion-card>
